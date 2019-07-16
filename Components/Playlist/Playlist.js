@@ -5,27 +5,28 @@ import axios from 'axios'
 
 class Playlist extends Component {
 
-  state={
+  state = {
     currentPlaylist: [],
     prevPlayed: [],
-    nowPlaying: []
+    nowPlaying: {},
+    ready: false
   }
 
-  async componentDidMount(){
-    let data = await axios.post('http://104.248.216.64:7777/api/playlist', {group_id: this.props.navigation.state.params.groupDetails.group_id})
+  async componentDidMount() {
+    let data = await axios.post('http://104.248.216.64:7777/api/playlist', { group_id: this.props.navigation.state.params.groupDetails.group_id })
     this.setState({
       currentPlaylist: data.data.currentPlaylist,
       prevPlayed: data.data.prevList,
-      nowPlaying: data.data.nowPlaying[0]
+      nowPlaying: data.data.nowPlaying[0],
+      ready: true
     })
     console.log(data.data)
   }
 
   render() {
-
-    console.log(this.props.navigation.state.params)
     return (
-      <View>
+      <View style={styles.container}>
+        
       </View>
     )
   }
@@ -33,5 +34,9 @@ class Playlist extends Component {
 export default Playlist
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    backgroundColor: '#1d3253',
+    alignItems: 'center'
+  },
 })

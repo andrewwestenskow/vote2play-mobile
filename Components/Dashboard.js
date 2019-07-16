@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native'
 import axios from 'axios'
 import { withNavigation } from 'react-navigation'
 
@@ -26,14 +26,14 @@ class Dashboard extends Component {
     return (
       <View style={{ flex: 1 }}>
         {/* <ScrollView contentContainerStyle={{flex: 1}}> */}
-          <View style={styles.container}>
-            <Text style={styles.header}>Groups: </Text>
-            {this.state.groups.length > 0 && <FlatList 
-            style={{width: '100%'}}
-            contentContainerStyle={{alignItems: 'center'}}
+        <View style={styles.container}>
+          <Text style={styles.header}>Groups: </Text>
+          {this.state.groups.length > 0 && <FlatList
+            style={{ width: '100%' }}
+            contentContainerStyle={{ alignItems: 'center' }}
             data={this.state.groups}
             renderItem={(item) => {
-              return(
+              return (
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate('Playlist',
                     {
@@ -43,15 +43,18 @@ class Dashboard extends Component {
                   style={styles.card}
                 >
                   {/* <View style={styles.card}> */}
-                  <Text>{item.item.name}</Text>
-                  <Image source={{ uri: item.item.group_image }} style={{ width: 50, height: 50 }} />
-                  <Text>{item.item.joincode}</Text>
+                  <Image source={{ uri: item.item.group_image }} style={{ width: 250, height: 250, position: 'absolute' }} />
+                  <View style={styles.groupDetailHold}>
+                    <Text style={styles.groupName}>{item.item.name}</Text>
+                    <Text style={styles.joincode}>Joincode</Text>
+                    <Text style={styles.joincode}>{item.item.joincode}</Text>
+                  </View>
                   {/* </View> */}
                 </TouchableOpacity>
               )
             }}
-            />}
-          </View>
+          />}
+        </View>
         {/* </ScrollView> */}
       </View>
     )
@@ -77,5 +80,23 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  groupDetailHold: {
+    height: '50%',
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.65)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  groupName: {
+    fontSize: 24,
+    textDecorationLine: 'underline',
+    textAlign: 'center'
+  },
+  joincode: {
+    fontSize: 18
   }
 })
