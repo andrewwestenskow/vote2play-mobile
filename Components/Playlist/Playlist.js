@@ -24,9 +24,11 @@ class Playlist extends Component {
   }
 
   render() {
+
+    console.log(this.props.navigation.state.params.groupDetails.name)
     return (
       <View style={styles.container}>
-        
+        <Text>{this.props.navigation.state.params.groupDetails.name}</Text>
       </View>
     )
   }
