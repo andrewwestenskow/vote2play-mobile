@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import axios from 'axios'
+import YouTube from 'react-native-youtube'
 
 
 class Playlist extends Component {
@@ -9,7 +10,8 @@ class Playlist extends Component {
     currentPlaylist: [],
     prevPlayed: [],
     nowPlaying: {},
-    ready: false
+    ready: false,
+    player: {}
   }
 
   async componentDidMount() {
@@ -20,15 +22,31 @@ class Playlist extends Component {
       nowPlaying: data.data.nowPlaying[0],
       ready: true
     })
-    console.log(data.data)
   }
 
   render() {
-
-    console.log(this.props.navigation.state.params.groupDetails.name)
     return (
       <View style={styles.container}>
         <Text>{this.props.navigation.state.params.groupDetails.name}</Text>
+        {this.state.ready && <><YouTube
+          apiKey={'AIzaSyA0krbLSvCOLo5Cxj0R9ZRAjEOeIM6ciE8'}
+          play={true}
+          style={{ alignSelf: 'stretch', height: 300 }}
+          videoId={this.state.nowPlaying.id}
+          onReady={(e) => this.setState({ player: e })}
+          controls={1}
+          // fullscreen={true}
+        />
+        <FlatList 
+        data={this.state.currentPlaylist}
+        renderItem={((item, index)=>{
+          console.log(item.item)
+          return(
+            <Text>Andrew</Text>
+          )
+        })}
+        />
+        </>}
       </View>
     )
   }
