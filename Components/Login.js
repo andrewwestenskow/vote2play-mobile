@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, AsyncStorage } from 'react-native'
 import axios from 'axios'
 import {withNavigation} from 'react-navigation'
 
@@ -18,6 +18,7 @@ class Login extends Component {
     
     if(res.data.isAuthenticated){
       console.log(res.data)
+      AsyncStorage.setItem('login_id', res.data.login_id)
       this.props.navigation.navigate('Dashboard', {login_id: res.data.login_id, userDetails: res.data.userDetails, isAuthenticated: res.data.isAuthenticated})
     } else {
       this.setState({

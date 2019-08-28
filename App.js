@@ -1,12 +1,14 @@
 import Login from './Components/Login'
 import Dashboard from './Components/Dashboard'
 import Playlist from './Components/Playlist/Playlist'
+import Splash from './Components/Splash'
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 
 const MainNavigator = createStackNavigator(
   {
-    Home: Login,
+    Home: Splash,
+    Login: Login,
     Dashboard: Dashboard,
     Playlist: Playlist
   },
